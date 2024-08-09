@@ -9,7 +9,7 @@ A prototype implementation of escrow information concealment using joux's Tripar
 - [py_ecc](https://github.com/ethereum/py_ecc)
   - bls12_381 curve operations
 
-## Sample results
+## Sample results :test_tube:
 
 #### sandbox/tripartite_dh_sample.py
 
