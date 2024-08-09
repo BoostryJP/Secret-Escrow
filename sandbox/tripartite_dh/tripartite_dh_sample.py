@@ -87,7 +87,7 @@ print(B_dhk)
 
 print(
     """
-== DH key (Bob) ==
+== DH key (Charlie) ==
 """
 )
 C_dhk = pairing(A_pk2, B_pk1) ** C_sk
