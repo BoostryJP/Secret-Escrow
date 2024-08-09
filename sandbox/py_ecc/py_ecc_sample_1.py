@@ -1,4 +1,4 @@
-from py_ecc.bls12_381 import pairing, G2, G1, multiply, neg, FQ12
+from py_ecc.bls12_381 import FQ12, G1, G2, multiply, neg, pairing
 
 p1 = pairing(G2, G1)
 p2 = pairing(G2, multiply(G1, 2))
@@ -14,10 +14,10 @@ print("p1 * p1 == p2")
 print(p1 * p1 == p2)
 
 print("p1 * p2 == p1 ** 3")
-print(p1 * p2 == p1 ** 3)
+print(p1 * p2 == p1**3)
 
 print("p1 * po2 == p1 ** 3")
-print(p1 * po2 == p1 ** 3)
+print(p1 * po2 == p1**3)
 
 print("p1 * np1 == FQ12.one")
 print(p1 * np1 == FQ12.one())

@@ -9,7 +9,7 @@ update:
 	poetry update
 	npm update
 
-format: isort black prettier
+format: isort black
 
 isort:
 	isort .
