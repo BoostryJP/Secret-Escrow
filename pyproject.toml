@@ -6,7 +6,7 @@ authors = ["BOOSTRY Co., Ltd. <dev@boostry.co.jp>"]
 license = ""
 
 [tool.poetry.dependencies]
-python = "~3.12"
+python = "~3.11"
 py_ecc = "~7.0.0"
 
 [tool.poetry.group.dev.dependencies]
