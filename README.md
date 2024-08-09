@@ -11,7 +11,7 @@ A prototype implementation of escrow information concealment using joux's Tripar
 
 ## Sample results
 
-### `sandbox/tripartite_dh_sample.py`
+#### sandbox/tripartite_dh_sample.py
 
 ```
 
