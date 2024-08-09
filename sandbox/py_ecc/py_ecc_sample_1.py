@@ -21,12 +21,3 @@ print(p1 * po2 == p1 ** 3)
 
 print("p1 * np1 == FQ12.one")
 print(p1 * np1 == FQ12.one())
-
-p3 = pairing(multiply(G2, 27), multiply(G1, 37))
-po3 = pairing(G2, multiply(G1, 999))
-
-# print(p3)
-# print(po3)
-
-print("p3 == po3")
-print(p3 == po3)
