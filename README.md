@@ -6,8 +6,37 @@ A prototype implementation of escrow information concealment using joux's Tripar
 
 - [Python3](https://www.python.org/downloads/)
   - v3.11
-- [py_ecc](https://github.com/ethereum/py_ecc)
+- [ethereum/py_ecc](https://github.com/ethereum/py_ecc)
   - bls12_381 curve operations
+- [Solidity](https://docs.soliditylang.org/)
+  - We are using Solidity to implement our smart contracts. 
+  - Currently, we are using v0.8.23.
+- [eth-brownie](https://github.com/eth-brownie/brownie)
+  - We are using the eth-brownie framework for developing and testing our contracts.
+- [OpenZeppelin](https://openzeppelin.com/contracts/)
+  - Our project is partly dependent on OpenZeppelin.
+  - We use openzeppelin-contracts v4.9.
+
+## Install
+
+Install 3rd party packages.
+
+```bash
+$ make install
+```
+
+Install openzeppelin-contracts.
+
+```bash
+$ brownie pm install OpenZeppelin/openzeppelin-contracts@4.9.3
+```
+
+## Compile Contracts
+Use eth-brownie to compile contracts.
+
+```bash
+$ brownie compile
+```
 
 ## Sample results :test_tube:
 
