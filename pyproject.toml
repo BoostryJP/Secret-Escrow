@@ -8,6 +8,7 @@ license = ""
 [tool.poetry.dependencies]
 python = "~3.11"
 py_ecc = "~7.0.0"
+pycryptodome = "~3.20"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.7.0"

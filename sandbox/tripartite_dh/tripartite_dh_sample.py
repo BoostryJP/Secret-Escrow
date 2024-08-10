@@ -1,6 +1,11 @@
+import base64
 import secrets
+from hashlib import sha256
 
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import pad
 from py_ecc.bls12_381 import G1, G2, multiply, pairing
+from py_ecc.fields import bls12_381_FQ12
 
 ###############################################
 # Generate Alice's key
@@ -74,28 +79,50 @@ print(
 == DH key (Alice) ==
 """
 )
-A_dhk = pairing(B_pk2, C_pk1) ** A_sk
-print(A_dhk)
+A_dh: bls12_381_FQ12 = pairing(B_pk2, C_pk1) ** A_sk
+_hash = sha256()
+for _item in A_dh.coeffs:
+    _item = int(_item)
+    _hash.update(_item.to_bytes((_item.bit_length() + 7) // 8))
+A_shared_key = _hash.digest()
+print(A_shared_key)
 
 print(
     """
 == DH key (Bob) ==
 """
 )
-B_dhk = pairing(C_pk2, A_pk1) ** B_sk
-print(B_dhk)
+B_dh = pairing(C_pk2, A_pk1) ** B_sk
+_hash = sha256()
+for _item in B_dh.coeffs:
+    _item = int(_item)
+    _hash.update(_item.to_bytes((_item.bit_length() + 7) // 8))
+B_shared_key = _hash.digest()
+print(B_shared_key)
 
 print(
     """
 == DH key (Charlie) ==
 """
 )
-C_dhk = pairing(A_pk2, B_pk1) ** C_sk
-print(C_dhk)
+C_dh = pairing(A_pk2, B_pk1) ** C_sk
+_hash = sha256()
+for _item in C_dh.coeffs:
+    _item = int(_item)
+    _hash.update(_item.to_bytes((_item.bit_length() + 7) // 8))
+C_shared_key = _hash.digest()
+print(C_shared_key)
 
-print(
-    """
-== Assertion ==
-"""
-)
-print(A_dhk == B_dhk == C_dhk)
+
+print("""
+!!! Result !!!
+""")
+print(f"A_shared_key == B_shared_key == C_shared_key -> {A_shared_key == B_shared_key == C_shared_key}")
+
+message_org = "A One Round Protocol for Tripartite Diffie–Hellman"
+aes_iv = secrets.token_bytes(AES.block_size)
+aes_cipher = AES.new(A_shared_key, AES.MODE_CBC, aes_iv)
+pad_message = pad(message_org.encode("utf-8"), AES.block_size)
+encrypted_message = base64.b64encode(aes_iv + aes_cipher.encrypt(pad_message)).decode()
+print("Original message = 'A One Round Protocol for Tripartite Diffie–Hellman'")
+print(f"Encrypted message = {encrypted_message}")
