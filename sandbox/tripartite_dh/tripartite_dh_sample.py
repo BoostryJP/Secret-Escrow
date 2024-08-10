@@ -92,7 +92,7 @@ print(
 == DH key (Bob) ==
 """
 )
-B_dh = pairing(C_pk2, A_pk1) ** B_sk
+B_dh: bls12_381_FQ12 = pairing(C_pk2, A_pk1) ** B_sk
 _hash = sha256()
 for _item in B_dh.coeffs:
     _item = int(_item)
@@ -105,7 +105,7 @@ print(
 == DH key (Charlie) ==
 """
 )
-C_dh = pairing(A_pk2, B_pk1) ** C_sk
+C_dh: bls12_381_FQ12 = pairing(A_pk2, B_pk1) ** C_sk
 _hash = sha256()
 for _item in C_dh.coeffs:
     _item = int(_item)
