@@ -83,7 +83,7 @@ A_dh: bls12_381_FQ12 = pairing(B_pk2, C_pk1) ** A_sk
 _hash = sha256()
 for _item in A_dh.coeffs:
     _item = int(_item)
-    _hash.update(_item.to_bytes((_item.bit_length() + 7) // 8))
+    _hash.update(_item.to_bytes(48))
 A_shared_key = _hash.digest()
 print(A_shared_key)
 
@@ -96,7 +96,7 @@ B_dh: bls12_381_FQ12 = pairing(C_pk2, A_pk1) ** B_sk
 _hash = sha256()
 for _item in B_dh.coeffs:
     _item = int(_item)
-    _hash.update(_item.to_bytes((_item.bit_length() + 7) // 8))
+    _hash.update(_item.to_bytes(48))
 B_shared_key = _hash.digest()
 print(B_shared_key)
 
@@ -109,7 +109,7 @@ C_dh: bls12_381_FQ12 = pairing(A_pk2, B_pk1) ** C_sk
 _hash = sha256()
 for _item in C_dh.coeffs:
     _item = int(_item)
-    _hash.update(_item.to_bytes((_item.bit_length() + 7) // 8))
+    _hash.update(_item.to_bytes(48))
 C_shared_key = _hash.digest()
 print(C_shared_key)
 
