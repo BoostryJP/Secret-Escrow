@@ -4,7 +4,7 @@ from hashlib import sha256
 
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
-from py_ecc.bls12_381 import G1, G2, multiply, pairing, curve_order
+from py_ecc.bls12_381 import G1, G2, curve_order, multiply, pairing
 from py_ecc.fields import bls12_381_FQ12
 
 ###############################################
@@ -114,10 +114,14 @@ C_shared_key = _hash.digest()
 print(C_shared_key)
 
 
-print("""
+print(
+    """
 !!! Result !!!
-""")
-print(f"A_shared_key == B_shared_key == C_shared_key -> {A_shared_key == B_shared_key == C_shared_key}")
+"""
+)
+print(
+    f"A_shared_key == B_shared_key == C_shared_key -> {A_shared_key == B_shared_key == C_shared_key}"
+)
 
 message_org = "A One Round Protocol for Tripartite Diffie–Hellman"
 aes_iv = secrets.token_bytes(AES.block_size)
