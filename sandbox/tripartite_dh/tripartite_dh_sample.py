@@ -4,7 +4,7 @@ from hashlib import sha256
 
 from Crypto.Cipher import AES
 from Crypto.Util.Padding import pad
-from py_ecc.bls12_381 import G1, G2, multiply, pairing
+from py_ecc.bls12_381 import G1, G2, multiply, pairing, curve_order
 from py_ecc.fields import bls12_381_FQ12
 
 ###############################################
@@ -16,7 +16,7 @@ print(
 """
 )
 
-A_sk = int.from_bytes(secrets.token_bytes(32))
+A_sk = int.from_bytes(secrets.token_bytes(32)) % curve_order
 print("<A_sk>")
 print(A_sk)
 
@@ -37,7 +37,7 @@ print(
 """
 )
 
-B_sk = int.from_bytes(secrets.token_bytes(32))
+B_sk = int.from_bytes(secrets.token_bytes(32)) % curve_order
 print("<B_sk>")
 print(B_sk)
 
@@ -58,7 +58,7 @@ print(
 """
 )
 
-C_sk = int.from_bytes(secrets.token_bytes(32))
+C_sk = int.from_bytes(secrets.token_bytes(32)) % curve_order
 print("<C_sk>")
 print(C_sk)
 
