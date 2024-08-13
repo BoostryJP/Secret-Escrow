@@ -9,7 +9,7 @@ update:
 	poetry update
 	npm update
 
-format: isort black
+format: isort black prettier
 
 isort:
 	isort .
@@ -18,4 +18,7 @@ black:
 	black .
 
 prettier:
-	npx prettier --write --plugin=prettier-plugin-solidity contracts/**/*.sol interfaces/**/*.sol sandbox/**/*.sol
+	npx prettier --write --plugin=prettier-plugin-solidity contracts/**/*.sol interfaces/**/*.sol
+
+compile:
+	brownie compile
