@@ -1,0 +1,7 @@
+services:
+  hardhat-network:
+    build:
+      context: ./
+      dockerfile: tests/Dockerfile_hardhat
+    ports:
+      - "8545:8545"

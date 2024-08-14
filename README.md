@@ -36,6 +36,14 @@ $ brownie pm install OpenZeppelin/openzeppelin-contracts@4.9.3
 ```bash
 $ make compile
 ```
+If the compilation is successful, an ABI will be generated under the `build/` directory.
+
+## Run test
+
+After compiling, Run the following command:
+```bash
+$ make test
+```
 
 ## References
 1. Joux, A. (2000). A One Round Protocol for Tripartite Diffie–Hellman. In: Bosma, W. (eds) Algorithmic Number Theory. ANTS 2000. Lecture Notes in Computer Science, vol 1838. Springer, Berlin, Heidelberg. https://doi.org/10.1007/10722028_23

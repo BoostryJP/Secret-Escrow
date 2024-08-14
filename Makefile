@@ -22,3 +22,6 @@ prettier:
 
 compile:
 	brownie compile
+
+test:
+	pytest tests/ --pdb -vv

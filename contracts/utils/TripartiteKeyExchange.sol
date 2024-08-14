@@ -21,36 +21,33 @@ pragma solidity ^0.8.0;
 
 /// @title Joux's tripartite diffie-hellmann key exchange
 contract TripartiteKeyExchange {
-
     struct G1PublicKey {
-        uint g1pk_11;
-        uint g1pk_12;
+        string g1pk_11;
+        string g1pk_12;
     }
     mapping(address => G1PublicKey) public G1PK;
 
     struct G2PublicKey {
-        uint g2pk_11;
-        uint g2pk_12;
-        uint g2pk_21;
-        uint g2pk_22;
+        string g2pk_11;
+        string g2pk_12;
+        string g2pk_21;
+        string g2pk_22;
     }
     mapping(address => G2PublicKey) public G2PK;
 
-    event RegisterPublicKey(
-        address indexed account_address
-    );
+    event RegisterPublicKey(address indexed account_address);
 
     // [CONSTRUCTOR]
     constructor() {}
 
     /// @notice Register public key
     function registerPublicKey(
-        uint g1pk_11,
-        uint g1pk_12,
-        uint g2pk_11,
-        uint g2pk_12,
-        uint g2pk_21,
-        uint g2pk_22
+        string memory g1pk_11,
+        string memory g1pk_12,
+        string memory g2pk_11,
+        string memory g2pk_12,
+        string memory g2pk_21,
+        string memory g2pk_22
     ) public {
         G1PublicKey storage g1_pubkey = G1PK[msg.sender];
         G2PublicKey storage g2_pubkey = G2PK[msg.sender];
@@ -65,5 +62,4 @@ contract TripartiteKeyExchange {
 
         emit RegisterPublicKey(msg.sender);
     }
-
 }
