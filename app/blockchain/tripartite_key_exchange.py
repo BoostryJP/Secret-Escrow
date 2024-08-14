@@ -6,6 +6,7 @@ from py_ecc.fields import bls12_381_FQ, bls12_381_FQ2, bls12_381_FQ12
 from pydantic import BaseModel
 
 from app.blockchain.type.eth_account import EOA
+from app.exceptions import KeyNotRegisteredError
 from app.utils.contract_utils import ContractUtils
 from config import CHAIN_ID, TX_GAS_LIMIT
 
@@ -57,10 +58,16 @@ class TripartiteKeyExchangeContract:
 
     def get_G1_public_key(self, address: str):
         g1pk = self.key_exchange_contract.functions.G1PK(address).call()
+        for _item in g1pk:
+            if _item == "":
+                raise KeyNotRegisteredError
         return g1pk
 
     def get_G2_public_key(self, address: str):
         g2pk = self.key_exchange_contract.functions.G2PK(address).call()
+        for _item in g2pk:
+            if _item == "":
+                raise KeyNotRegisteredError
         return g2pk
 
     def generate_shared_key(self, secret_key, address1: str, address2: str):

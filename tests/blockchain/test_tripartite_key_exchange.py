@@ -1,5 +1,6 @@
 import secrets
 
+import pytest
 from coincurve import PublicKey
 from eth_utils import keccak, to_checksum_address
 
@@ -8,6 +9,7 @@ from app.blockchain.tripartite_key_exchange import (
     TripartiteKeyExchangeContract,
 )
 from app.blockchain.type.eth_account import EOA
+from app.exceptions import KeyNotRegisteredError
 
 
 def get_eth_key():
@@ -52,6 +54,75 @@ class TestRegisterPublicKey:
             str(g2pk[1].coeffs[0]),
             str(g2pk[1].coeffs[1]),
         ]
+
+
+class TestGetG1PublicKey:
+
+    def test_key_not_registered(self, key_exchange):
+        user_A = get_eth_key()
+        ke_model = TripartiteKeyExchangeContract(
+            account=user_A, contract_address=key_exchange.address
+        )
+        with pytest.raises(KeyNotRegisteredError):
+            ke_model.get_G1_public_key(user_A.address)
+
+    def test_get_key(self, key_exchange):
+        user_A = get_eth_key()
+        ke_model_A = TripartiteKeyExchangeContract(
+            account=user_A, contract_address=key_exchange.address
+        )
+        A_sk, A_g1pk, A_g2pk = ke_model_A.generate_key()
+
+        _params = {
+            "g1pk_11": str(A_g1pk[0]),
+            "g1pk_12": str(A_g1pk[1]),
+            "g2pk_11": str(A_g2pk[0].coeffs[0]),
+            "g2pk_12": str(A_g2pk[0].coeffs[1]),
+            "g2pk_21": str(A_g2pk[1].coeffs[0]),
+            "g2pk_22": str(A_g2pk[1].coeffs[1]),
+        }
+        ke_model_A.register_public_key(public_key=TKERegisterPublicKeyParams(**_params))
+
+        g1pk = ke_model_A.get_G1_public_key(user_A.address)
+        assert g1pk[0] == str(A_g1pk[0])
+        assert g1pk[1] == str(A_g1pk[1])
+
+
+class TestGetG2PublicKey:
+
+    def test_key_not_registered(self, key_exchange):
+        user_A = get_eth_key()
+        ke_model = TripartiteKeyExchangeContract(
+            account=user_A, contract_address=key_exchange.address
+        )
+        with pytest.raises(KeyNotRegisteredError):
+            ke_model.get_G2_public_key(user_A.address)
+
+    def test_get_key(self, key_exchange):
+        user_A = get_eth_key()
+        ke_model_A = TripartiteKeyExchangeContract(
+            account=user_A, contract_address=key_exchange.address
+        )
+        A_sk, A_g1pk, A_g2pk = ke_model_A.generate_key()
+
+        _params = {
+            "g1pk_11": str(A_g1pk[0]),
+            "g1pk_12": str(A_g1pk[1]),
+            "g2pk_11": str(A_g2pk[0].coeffs[0]),
+            "g2pk_12": str(A_g2pk[0].coeffs[1]),
+            "g2pk_21": str(A_g2pk[1].coeffs[0]),
+            "g2pk_22": str(A_g2pk[1].coeffs[1]),
+        }
+        ke_model_A.register_public_key(public_key=TKERegisterPublicKeyParams(**_params))
+
+        g2pk = ke_model_A.get_G2_public_key(user_A.address)
+        assert g2pk[0] == str(A_g2pk[0].coeffs[0])
+        assert g2pk[1] == str(A_g2pk[0].coeffs[1])
+        assert g2pk[2] == str(A_g2pk[1].coeffs[0])
+        assert g2pk[3] == str(A_g2pk[1].coeffs[1])
+
+
+class TestGenerateSharedKey:
 
     def test_shared_key(self, key_exchange):
         user_A = get_eth_key()
