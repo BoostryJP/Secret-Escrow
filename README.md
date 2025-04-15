@@ -4,7 +4,7 @@ A prototype implementation of escrow information concealment using Joux's Tripar
 
 ## Dependencies
 
-- [Python3](https://www.python.org/downloads/)
+- [Python](https://www.python.org/downloads/)
   - v3.11
 - [ethereum/py_ecc](https://github.com/ethereum/py_ecc)
   - bls12_381 curve operations
@@ -19,14 +19,19 @@ A prototype implementation of escrow information concealment using Joux's Tripar
 
 ## Install
 
-Install 3rd party packages.
+### Create virtual environment
+```bash
+$ uv venv
+```
 
+### Install packages
+
+Install 3rd party packages.
 ```bash
 $ make install
 ```
 
 Install openzeppelin-contracts.
-
 ```bash
 $ brownie pm install OpenZeppelin/openzeppelin-contracts@4.9.3
 ```
