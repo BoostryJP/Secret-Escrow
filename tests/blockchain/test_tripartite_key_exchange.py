@@ -20,7 +20,6 @@ def get_eth_key():
 
 
 class TestRegisterPublicKey:
-
     def test_register(self, key_exchange):
         user = get_eth_key()
 
@@ -57,7 +56,6 @@ class TestRegisterPublicKey:
 
 
 class TestGetG1PublicKey:
-
     def test_key_not_registered(self, key_exchange):
         user_A = get_eth_key()
         ke_model = TripartiteKeyExchangeContract(
@@ -89,7 +87,6 @@ class TestGetG1PublicKey:
 
 
 class TestGetG2PublicKey:
-
     def test_key_not_registered(self, key_exchange):
         user_A = get_eth_key()
         ke_model = TripartiteKeyExchangeContract(
@@ -123,7 +120,6 @@ class TestGetG2PublicKey:
 
 
 class TestGenerateSharedKey:
-
     def test_shared_key(self, key_exchange):
         user_A = get_eth_key()
         user_B = get_eth_key()

@@ -1,6 +1,6 @@
 # Secret-Escrow 🤫
 
-A prototype implementation of escrow information concealment using joux's Tripartite-Diffie-Hellman.
+A prototype implementation of escrow information concealment using Joux's Tripartite-Diffie-Hellman.
 
 ## Dependencies
 

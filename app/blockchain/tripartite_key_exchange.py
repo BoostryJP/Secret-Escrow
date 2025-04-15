@@ -21,7 +21,6 @@ class TKERegisterPublicKeyParams(BaseModel):
 
 
 class TripartiteKeyExchangeContract:
-
     def __init__(self, account: EOA, contract_address: str):
         self.key_exchange_contract = ContractUtils.get_contract(
             contract_name="TripartiteKeyExchange", contract_address=contract_address
