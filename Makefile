@@ -1,24 +1,20 @@
 .PHONY: install update format isort black
 
 install:
-	poetry install --no-root --sync
+	uv sync --frozen --no-install-project --all-extras
+	uv run pre-commit install
 	npm install
-	poetry run pre-commit install
 
 update:
-	poetry update
+	uv lock --upgrade
 	npm update
 
-format: isort black prettier
-
-isort:
-	isort .
-
-black:
-	black .
-
-prettier:
+format:
+	uv run ruff format && uv run ruff check --fix --select I
 	npx prettier --write --plugin=prettier-plugin-solidity contracts/**/*.sol interfaces/**/*.sol
+
+lint:
+	uv run ruff check --fix
 
 compile:
 	brownie compile
