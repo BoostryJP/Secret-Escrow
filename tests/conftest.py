@@ -1,10 +1,16 @@
+from subprocess import DEVNULL
+from typing import Generator
+
 import pytest
 from brownie import web3
 from brownie.network.account import Account
+from brownie.network.rpc import anvil as brownie_anvil_rpc
 from pydantic import BaseModel, ConfigDict
-from web3.middleware import geth_poa_middleware
+from web3.middleware.geth_poa import geth_poa_middleware
 
 web3.middleware_onion.inject(geth_poa_middleware, layer=0)
+
+setattr(brownie_anvil_rpc, "PIPE", DEVNULL)
 
 
 class Users(BaseModel):
@@ -17,12 +23,12 @@ class Users(BaseModel):
 
 
 @pytest.fixture()
-def users(web3, accounts) -> Users:
+def users(web3, accounts) -> Generator[Users, None, None]:
     admin = accounts[0]
     buyer = accounts[1]
     seller = accounts[2]
     agent = accounts[3]
-    users = Users(admin=admin, buyer=buyer, seller=seller, agent=agent)
+    users: Users = Users(admin=admin, buyer=buyer, seller=seller, agent=agent)
     yield users
 
 

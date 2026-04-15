@@ -13,6 +13,8 @@ A prototype implementation of escrow information concealment using Joux's Tripar
   - Currently, we are using v0.8.23.
 - [eth-brownie](https://github.com/eth-brownie/brownie)
   - We are using the eth-brownie framework for developing and testing our contracts.
+- [Anvil](https://www.getfoundry.sh/anvil)
+  - We use Anvil for local development and unit testing.
 - [OpenZeppelin](https://openzeppelin.com/contracts/)
   - Our project is partly dependent on OpenZeppelin.
   - We use openzeppelin-contracts v4.9.
@@ -49,6 +51,12 @@ After compiling, Run the following command:
 ```bash
 $ make test
 ```
+
+## Developing Smart Contracts
+
+### Network(Anvil) settings
+
+Network settings are defined in the `data/networks.yml` file.
 
 ## References
 1. Joux, A. (2000). A One Round Protocol for Tripartite Diffie–Hellman. In: Bosma, W. (eds) Algorithmic Number Theory. ANTS 2000. Lecture Notes in Computer Science, vol 1838. Springer, Berlin, Heidelberg. https://doi.org/10.1007/10722028_23

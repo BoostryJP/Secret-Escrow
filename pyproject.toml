@@ -16,11 +16,17 @@ name = "Secret-Escrow"
 version = "0.0.1"
 description = "Concealing escrow information using Joux's Tripartite-Diffie-Hellman"
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "pre-commit<4.0.0,>=3.7.0",
     "ruff<1.0.0,>=0.5.4",
 ]
+
+[tool.uv]
+exclude-newer = "7 days"
+
+[tool.pytest.ini_options]
+addopts = ["--network=test_network"]
 
 [tool.ruff]
 line-length = 88
