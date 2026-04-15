@@ -1,0 +1,56 @@
+name: PR
+
+on:
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+        with:
+          enable-cache: true
+      - name: Install dependencies
+        run: |
+          uv sync --frozen --no-install-project
+          npm ci
+      - name: Ruff
+        run: uv run ruff check
+      - name: Prettier
+        run: npx prettier --check --plugin=prettier-plugin-solidity "contracts/**/*.sol" "interfaces/**/*.sol"
+
+  unit-test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Set up uv
+        uses: astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57
+        with:
+          enable-cache: true
+      - name: Set up Foundry
+        uses: foundry-rs/foundry-toolchain@8789b3e21e6c11b2697f5eb56eddae542f746c10
+        with:
+          version: stable
+      - name: Install dependencies
+        run: |
+          uv sync --frozen --no-install-project
+          npm ci
+      - name: Import Brownie network settings
+        run: uv run brownie networks import data/networks.yml true
+      - name: Compile contracts
+        run: uv run brownie compile --all
+      - name: Run tests
+        run: uv run pytest --disable-warnings -v tests/

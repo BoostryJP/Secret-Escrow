@@ -2,7 +2,8 @@ import secrets
 
 import pytest
 from coincurve import PublicKey
-from eth_utils import keccak, to_checksum_address
+from eth_utils.address import to_checksum_address
+from eth_utils.crypto import keccak
 
 from app.blockchain.tripartite_key_exchange import (
     TKERegisterPublicKeyParams,

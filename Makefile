@@ -20,4 +20,4 @@ compile:
 	brownie compile
 
 test:
-	pytest tests/ --pdb -vv
+	uv run pytest --network=test_network tests/ --pdb -vv
