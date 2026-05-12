@@ -4,7 +4,7 @@ from typing import Any
 
 from eth_typing import URI
 from web3 import Web3
-from web3.middleware import geth_poa_middleware
+from web3.middleware import ExtraDataToPOAMiddleware
 from web3.types import RPCEndpoint, RPCResponse
 
 from config import WEB3_HTTP_PROVIDER
@@ -39,7 +39,7 @@ class Web3Wrapper:
             web3 = thread_local.web3
         except AttributeError:
             web3 = Web3(FailOverHTTPProvider())
-            web3.middleware_onion.inject(geth_poa_middleware, layer=0)
+            web3.middleware_onion.inject(ExtraDataToPOAMiddleware, layer=0)
             thread_local.web3 = web3
 
         return web3

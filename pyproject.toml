@@ -5,12 +5,14 @@ authors = [
 license = {text = "Apache License, Version 2.0"}
 requires-python = "==3.11.12"
 dependencies = [
-    "py-ecc~=7.0.0",
+    "ape-foundry~=0.8.12",
+    "ape-solidity~=0.8.5",
+    "eth-ape~=0.8.49",
+    "py-ecc>=8.0.0,<9",
     "pycryptodome~=3.20",
-    "web3~=6.15.1",
+    "web3>=6.20.1,<8",
     "coincurve~=19.0.1",
-    "eth-brownie~=1.20.3",
-    "pydantic~=2.7.1",
+    "pydantic>=2.10,<3",
 ]
 name = "Secret-Escrow"
 version = "0.0.1"
@@ -26,7 +28,8 @@ dev = [
 exclude-newer = "7 days"
 
 [tool.pytest.ini_options]
-addopts = ["--network=test_network"]
+addopts = ["--network=ethereum:local:foundry"]
+pythonpath = ["."]
 
 [tool.ruff]
 line-length = 88

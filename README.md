@@ -6,13 +6,13 @@ A prototype implementation of escrow information concealment using Joux's Tripar
 
 - [Python](https://www.python.org/downloads/)
   - v3.11
+- [Ape Framework](https://www.apeworx.io/ape/stable/)
+  - We use Ape with the Solidity and Foundry plugins for contract compilation and testing.
 - [ethereum/py_ecc](https://github.com/ethereum/py_ecc)
   - bls12_381 curve operations
 - [Solidity](https://docs.soliditylang.org/)
-  - We are using Solidity to implement our smart contracts. 
+  - We are using Solidity to implement our smart contracts.
   - Currently, we are using v0.8.34.
-- [eth-brownie](https://github.com/eth-brownie/brownie)
-  - We are using the eth-brownie framework for developing and testing our contracts.
 - [Anvil](https://www.getfoundry.sh/anvil)
   - We use Anvil for local development and unit testing.
 - [OpenZeppelin](https://openzeppelin.com/contracts/)
@@ -33,9 +33,9 @@ Install 3rd party packages.
 $ make install
 ```
 
-Install openzeppelin-contracts.
+Install Ape dependencies.
 ```bash
-$ brownie pm install OpenZeppelin/openzeppelin-contracts@4.9.3
+$ make setup
 ```
 
 ## Compile Contracts
@@ -43,20 +43,27 @@ $ brownie pm install OpenZeppelin/openzeppelin-contracts@4.9.3
 ```bash
 $ make compile
 ```
-If the compilation is successful, an ABI will be generated under the `build/` directory.
+If compilation succeeds, Ape writes the build manifest under `.build/`.
 
 ## Run test
 
-After compiling, Run the following command:
+After compiling, run the following command:
 ```bash
 $ make test
+```
+
+To run a specific test file:
+```bash
+$ make test {path_to_test_file}
 ```
 
 ## Developing Smart Contracts
 
 ### Network(Anvil) settings
 
-Network settings are defined in the `data/networks.yml` file.
+The Ape project settings are defined in `ape-config.yaml`.
+
+The Anvil command used for tests is defined in `tests/run_anvil_test.sh` and uses chain ID `2017` to match the app-side transaction builder.
 
 ## References
 1. Joux, A. (2000). A One Round Protocol for Tripartite Diffie–Hellman. In: Bosma, W. (eds) Algorithmic Number Theory. ANTS 2000. Lecture Notes in Computer Science, vol 1838. Springer, Berlin, Heidelberg. https://doi.org/10.1007/10722028_23
