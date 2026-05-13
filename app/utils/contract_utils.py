@@ -1,7 +1,8 @@
 import json
+from pathlib import Path
 from typing import Tuple, Type, TypeVar
 
-from eth_utils import to_checksum_address
+from eth_utils.address import to_checksum_address
 from web3.contract import Contract
 from web3.exceptions import (
     ABIFunctionNotFound,
@@ -15,10 +16,15 @@ from app.utils.web3_utils import Web3Wrapper
 from config import CHAIN_ID, TX_GAS_LIMIT
 
 web3 = Web3Wrapper()
+OUTPUT_DIR = Path("output")
 
 
 class ContractUtils:
     factory_map: dict[str, Type[Contract]] = {}
+
+    @staticmethod
+    def _get_contract_path(contract_name: str) -> Path:
+        return OUTPUT_DIR / f"{contract_name}.json"
 
     @staticmethod
     def get_contract_code(contract_name: str):
@@ -27,7 +33,9 @@ class ContractUtils:
         :param contract_name: contract name
         :return: ABI, bytecode, deployedBytecode
         """
-        contract_json = json.load(open(f"build/contracts/{contract_name}.json", "r"))
+        contract_path = ContractUtils._get_contract_path(contract_name)
+        with contract_path.open("r", encoding="utf-8") as file:
+            contract_json = json.load(file)
 
         if "bytecode" not in contract_json.keys():
             contract_json["bytecode"] = None
@@ -51,9 +59,10 @@ class ContractUtils:
         :param private_key: private key
         :return: contract address, ABI, transaction hash
         """
-        contract_file = f"contracts/{contract_name}.json"
         try:
-            contract_json = json.load(open(contract_file, "r"))
+            contract_path = ContractUtils._get_contract_path(contract_name)
+            with contract_path.open("r", encoding="utf-8") as file:
+                contract_json = json.load(file)
         except FileNotFoundError as file_not_found_err:
             raise SendTransactionError(file_not_found_err)
 
@@ -103,8 +112,9 @@ class ContractUtils:
         if contract_factory is not None:
             return contract_factory(address=to_checksum_address(contract_address))
 
-        contract_file = f"build/contracts/{contract_name}.json"
-        contract_json = json.load(open(contract_file, "r"))
+        contract_path = cls._get_contract_path(contract_name)
+        with contract_path.open("r", encoding="utf-8") as file:
+            contract_json = json.load(file)
         contract_factory = web3.eth.contract(abi=contract_json["abi"])
         cls.factory_map[contract_name] = contract_factory
         return contract_factory(address=to_checksum_address(contract_address))
@@ -150,7 +160,7 @@ class ContractUtils:
             transaction_dict=transaction, private_key=private_key
         )
         # Send Transaction
-        tx_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction.hex())
+        tx_hash = web3.eth.send_raw_transaction(signed_tx.raw_transaction.hex())
         tx_receipt = web3.eth.wait_for_transaction_receipt(
             transaction_hash=tx_hash, timeout=10
         )
