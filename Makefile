@@ -1,10 +1,5 @@
 .PHONY: install setup update format lint compile test
 
-ANVIL_HOST ?= 127.0.0.1
-ANVIL_PORT ?= 8545
-ANVIL_LOG_FILE ?= /tmp/secret-escrow-anvil.log
-ANVIL_STARTUP_TIMEOUT_SECONDS ?= 30
-
 install:
 	uv sync --frozen --no-install-project --all-extras
 	uv run pre-commit install
@@ -27,6 +22,5 @@ lint:
 compile:
 	uv run ape compile
 
-test:
-	@ANVIL_HOST=$(ANVIL_HOST) ANVIL_PORT=$(ANVIL_PORT) ANVIL_LOG_FILE=$(ANVIL_LOG_FILE) ANVIL_STARTUP_TIMEOUT_SECONDS=$(ANVIL_STARTUP_TIMEOUT_SECONDS) \
-		bash tests/run_anvil_test.sh tests/ $(ARG)
+test: compile
+	uv run ape test --network ethereum:local:foundry tests/ ${ARG}

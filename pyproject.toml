@@ -29,12 +29,12 @@ exclude-newer = "7 days"
 
 [tool.pytest.ini_options]
 addopts = ["--network=ethereum:local:foundry"]
-pythonpath = ["."]
+pythonpath = [".", "tests"]
 
 [tool.ruff]
 line-length = 88
 indent-width = 4
-target-version = "py311"
+target-version = "py314"
 exclude = [".venv/*"]
 
 [tool.ruff.format]
