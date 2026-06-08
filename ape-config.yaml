@@ -1,4 +1,4 @@
-name: Secret-Escrow
+name: Linked-ST
 
 plugins:
   - name: solidity
@@ -14,9 +14,8 @@ compile:
 
 solidity:
   version: 0.8.34
-  evm_version: berlin
-  import_remapping:
-    - OpenZeppelin/openzeppelin-contracts@4.9.3=@openzeppelin
+  evm_version: osaka
+  via_ir: true
 
 ethereum:
   default_network: local
@@ -28,9 +27,9 @@ foundry:
   host: http://127.0.0.1:8545
   base_fee: 0
   priority_fee: 0
-  evm_version: berlin
-  request_timeout: 60
-  process_attempts: 10
+  evm_version: osaka
+  request_timeout: 5
+  process_attempts: 3
 
 test:
   mnemonic: test test test test test test test test test test test junk

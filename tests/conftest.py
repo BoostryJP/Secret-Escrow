@@ -3,6 +3,8 @@ from typing import Any
 import pytest
 from pydantic import BaseModel, ConfigDict
 
+pytest_plugins = ("anvil_manager",)
+
 
 class Users(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
