@@ -5,7 +5,7 @@ A prototype implementation of escrow information concealment using Joux's Tripar
 ## Dependencies
 
 - [Python](https://www.python.org/downloads/)
-  - v3.11
+  - v3.14
 - [Ape Framework](https://www.apeworx.io/ape/stable/)
   - We use Ape with the Solidity and Foundry plugins for contract compilation and testing.
 - [ethereum/py_ecc](https://github.com/ethereum/py_ecc)

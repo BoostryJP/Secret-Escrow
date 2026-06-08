@@ -1,8 +1,7 @@
 import secrets
 
 import pytest
-from coincurve import PublicKey
-from eth_utils.address import to_checksum_address
+from eth_keys.datatypes import PrivateKey
 from eth_utils.crypto import keccak
 
 from app.blockchain.tripartite_key_exchange import (
@@ -15,8 +14,7 @@ from app.exceptions import KeyNotRegisteredError
 
 def get_eth_key():
     private_key = keccak(secrets.token_bytes(32))
-    public_key = PublicKey.from_valid_secret(private_key).format(compressed=False)[1:]
-    eth_addr = to_checksum_address(keccak(public_key)[-20:])
+    eth_addr = PrivateKey(private_key).public_key.to_checksum_address()
     return EOA(address=eth_addr, private_key=private_key)
 
 
