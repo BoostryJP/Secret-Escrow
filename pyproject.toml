@@ -3,15 +3,15 @@ authors = [
     {name = "BOOSTRY Co., Ltd.", email = "dev@boostry.co.jp"},
 ]
 license = {text = "Apache License, Version 2.0"}
-requires-python = "==3.11.12"
+requires-python = "==3.14.2"
 dependencies = [
     "ape-foundry~=0.8.12",
     "ape-solidity~=0.8.5",
+    "eth-keys~=0.7.0",
     "eth-ape~=0.8.49",
     "py-ecc>=8.0.0,<9",
     "pycryptodome~=3.20",
     "web3>=6.20.1,<8",
-    "coincurve~=19.0.1",
     "pydantic>=2.10,<3",
 ]
 name = "Secret-Escrow"
