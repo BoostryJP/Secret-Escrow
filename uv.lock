@@ -1,6 +1,6 @@
 version = 1
 revision = 3
-requires-python = "==3.14.2"
+requires-python = "==3.14.*"
 resolution-markers = [
     "implementation_name == 'cpython'",
     "implementation_name == 'pypy'",
@@ -8,7 +8,7 @@ resolution-markers = [
 ]
 
 [options]
-exclude-newer = "2026-06-01T06:03:14.960796Z"
+exclude-newer = "0001-01-01T00:00:00Z" # This has no effect and is included for backwards compatibility when using relative exclude-newer values.
 exclude-newer-span = "P7D"
 
 [[package]]
@@ -549,7 +549,7 @@ pycryptodome = [
     { name = "pycryptodome" },
 ]
 pysha3 = [
-    { name = "safe-pysha3", marker = "implementation_name == 'cpython'" },
+    { name = "safe-pysha3" },
 ]
 
 [[package]]
